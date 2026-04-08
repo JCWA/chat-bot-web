@@ -36,6 +36,40 @@ export default function ChatWindow({ chatId, userId }: Props) {
   const isBot = (uid: string) => uid === 'bot'
   const isMe = (uid: string) => uid === userId
 
+  /** 봇 메시지에서 ![alt](url) 패턴을 이미지로 렌더링 */
+  const renderMessage = (text: string, fromBot: boolean) => {
+    if (!fromBot) return text
+
+    const imgRegex = /!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g
+    const parts: React.ReactNode[] = []
+    let lastIndex = 0
+    let match: RegExpExecArray | null
+
+    while ((match = imgRegex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index))
+      }
+      const alt = match[1]
+      const url = match[2]
+      parts.push(
+        <img
+          key={url}
+          src={url}
+          alt={alt || '약 이미지'}
+          className="rounded-lg mt-2 max-w-full sm:max-w-[240px]"
+          loading="lazy"
+        />,
+      )
+      lastIndex = match.index + match[0].length
+    }
+
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex))
+    }
+
+    return parts.length > 0 ? parts : text
+  }
+
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       {/* 헤더 */}
@@ -77,7 +111,7 @@ export default function ChatWindow({ chatId, userId }: Props) {
                     : 'bg-white text-gray-800 shadow-sm rounded-tl-sm'
                 }`}
               >
-                {msg.message}
+                {renderMessage(msg.message, isBot(msg.userId))}
               </div>
             </div>
           </article>
