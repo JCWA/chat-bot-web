@@ -140,7 +140,8 @@ export default function ChatWindow({ chatId, userId }: Props) {
 
               {/* 약 카드 목록 */}
               {msg.medicines && msg.medicines.length > 0 && (
-                <div className="flex gap-2 overflow-x-auto mt-1.5 pb-1 touch-pan-x overscroll-x-contain">
+                <div className="w-full overflow-hidden mt-1.5">
+                <div className="flex gap-2 overflow-x-auto pb-1 touch-pan-x overscroll-x-contain">
                   {msg.medicines.map((med) => (
                     <button
                       key={med.item_name}
@@ -165,6 +166,7 @@ export default function ChatWindow({ chatId, userId }: Props) {
                       </div>
                     </button>
                   ))}
+                </div>
                 </div>
               )}
             </div>
