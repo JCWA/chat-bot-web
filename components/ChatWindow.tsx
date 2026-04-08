@@ -82,9 +82,33 @@ export default function ChatWindow({ chatId, userId }: Props) {
       {/* 메시지 목록 */}
       <main className="flex-1 overflow-y-auto px-3 py-4 sm:px-4 space-y-3">
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full text-gray-400 gap-2">
-            <span className="text-3xl sm:text-4xl" role="img" aria-label="로봇">🤖</span>
-            <p className="text-xs sm:text-sm text-center px-4">약의 모양, 색상, 식별문자를 알려주시면<br />의약품을 찾아드립니다!</p>
+          <div className="flex flex-col items-center justify-center h-full text-gray-500 gap-4 px-4">
+            <span className="text-4xl sm:text-5xl" role="img" aria-label="알약">💊</span>
+            <h2 className="font-semibold text-gray-700 text-base sm:text-lg">AI 의약품 식별 챗봇</h2>
+            <p className="text-xs sm:text-sm text-center text-gray-400">약의 특징을 입력하면 어떤 약인지 찾아드립니다</p>
+
+            <div className="w-full max-w-sm space-y-2 mt-2">
+              <p className="text-xs font-medium text-gray-500 text-center">이렇게 물어보세요</p>
+              {[
+                '흰색 원형 알약에 C 글자가 있어',
+                '노란색 긴 알약 뒷면에 325',
+                '타이레놀 어떻게 생겼어?',
+                '해열진통제 종류 알려줘',
+              ].map((example) => (
+                <button
+                  key={example}
+                  onClick={() => { sendMessage(example); }}
+                  className="w-full text-left px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-600 hover:border-indigo-300 hover:bg-indigo-50 transition"
+                >
+                  &ldquo;{example}&rdquo;
+                </button>
+              ))}
+            </div>
+
+            <div className="text-[11px] text-gray-400 text-center mt-2 leading-relaxed">
+              모양 · 색상 · 식별문자 · 약 이름 · 약효분류로 검색 가능<br />
+              효능 · 용법 · 부작용 정보도 안내해드립니다
+            </div>
           </div>
         )}
 
