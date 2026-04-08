@@ -3,10 +3,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 
+export interface MedicineCard {
+  item_name: string
+  entp_name: string
+  item_image: string | null
+  drug_shape: string | null
+  color: string | null
+  class_name: string | null
+  efcy: string | null
+}
+
 export interface ChatMessage {
   id: string
   userId: string
   message: string
+  medicines?: MedicineCard[]
   timestamp: number
 }
 
@@ -33,7 +44,7 @@ export function useChat({ chatId, userId }: UseChatOptions) {
     socket.on('connect', () => setConnected(true))
     socket.on('disconnect', () => setConnected(false))
 
-    socket.on('receiveMessage', (data: { userId: string; message: string }) => {
+    socket.on('receiveMessage', (data: { userId: string; message: string; medicines?: MedicineCard[] }) => {
       if (data.userId === 'bot') setBotTyping(false)
       setMessages((prev) => [
         ...prev,
@@ -41,6 +52,7 @@ export function useChat({ chatId, userId }: UseChatOptions) {
           id: `${Date.now()}-${Math.random()}`,
           userId: data.userId,
           message: data.message,
+          medicines: data.medicines,
           timestamp: Date.now(),
         },
       ])
