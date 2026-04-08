@@ -115,7 +115,7 @@ export default function ChatWindow({ chatId, userId }: Props) {
         {messages.map((msg) => (
           <article
             key={msg.id}
-            className={`flex overflow-hidden ${isMe(msg.userId) ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${isMe(msg.userId) ? 'justify-end' : 'justify-start'}`}
           >
             {/* 봇 아바타 */}
             {isBot(msg.userId) && (
@@ -124,7 +124,7 @@ export default function ChatWindow({ chatId, userId }: Props) {
               </div>
             )}
 
-            <div className={`max-w-[85%] sm:max-w-[70%] min-w-0 overflow-hidden ${isMe(msg.userId) ? 'items-end' : 'items-start'} flex flex-col gap-0.5`}>
+            <div className={`max-w-[85%] sm:max-w-[70%] min-w-0 ${isMe(msg.userId) ? 'items-end' : 'items-start'} flex flex-col gap-0.5`}>
               {!isMe(msg.userId) && (
                 <span className="text-xs text-gray-400 pl-1">{isBot(msg.userId) ? '봇' : msg.userId}</span>
               )}
