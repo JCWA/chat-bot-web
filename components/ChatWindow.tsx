@@ -142,9 +142,10 @@ export default function ChatWindow({ chatId, userId }: Props) {
               {msg.medicines && msg.medicines.length > 0 && (
                 <div className="flex gap-2 overflow-x-auto mt-1.5 pb-1">
                   {msg.medicines.map((med) => (
-                    <div
+                    <button
                       key={med.item_name}
-                      className="flex-shrink-0 w-40 sm:w-48 bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+                      onClick={() => sendMessage(`${med.item_name} 알려줘`)}
+                      className="flex-shrink-0 w-40 sm:w-48 bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm text-left hover:border-indigo-300 hover:shadow-md transition-all cursor-pointer"
                     >
                       {med.item_image && (
                         <img
@@ -162,7 +163,7 @@ export default function ChatWindow({ chatId, userId }: Props) {
                         )}
                         {med.efcy && <p className="text-[11px] text-gray-500 line-clamp-2 mt-1">{med.efcy}</p>}
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               )}
