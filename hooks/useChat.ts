@@ -45,7 +45,10 @@ export function useChat({ chatId, userId }: UseChatOptions) {
     socket.on('disconnect', () => setConnected(false))
 
     socket.on('receiveMessage', (data: { userId: string; message: string; medicines?: MedicineCard[] }) => {
-      if (data.userId === 'bot') setBotTyping(false)
+      if (data.userId === 'bot') {
+        setBotTyping(false)
+        if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current)
+      }
       setMessages((prev) => [
         ...prev,
         {
@@ -63,9 +66,18 @@ export function useChat({ chatId, userId }: UseChatOptions) {
     }
   }, [chatId, userId])
 
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const sendMessage = useCallback((message: string) => {
     if (!socketRef.current?.connected || !message.trim()) return
     setBotTyping(true)
+
+    // 45초 후에도 응답 없으면 타이핑 해제
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current)
+    typingTimeoutRef.current = setTimeout(() => {
+      setBotTyping(false)
+    }, 45000)
+
     socketRef.current.emit('sendMessage', { message })
   }, [])
 
