@@ -36,7 +36,7 @@ export function useChat({ chatId, userId }: UseChatOptions) {
     const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL ?? 'http://localhost:3000'
     const socket = io(`${socketUrl}/chat/${chatId}`, {
       query: { userId },
-      transports: ['polling', 'websocket'],
+      transports: ['websocket', 'polling'],
     })
 
     socketRef.current = socket

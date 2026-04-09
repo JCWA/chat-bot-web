@@ -154,6 +154,7 @@ export default function ChatWindow({ chatId, userId }: Props) {
                           alt={med.item_name}
                           className="w-full h-24 sm:h-28 object-contain bg-gray-50 p-2"
                           loading="lazy"
+                          onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
                       )}
                       <div className="px-2.5 py-2 space-y-0.5">
