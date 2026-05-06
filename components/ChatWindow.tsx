@@ -206,7 +206,7 @@ export default function ChatWindow({ chatId, userId }: Props) {
             onKeyDown={handleKeyDown}
             placeholder={connected ? '약 모양, 색상, 이름을 입력하세요...' : '연결 중...'}
             disabled={!connected}
-            className="flex-1 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full border border-gray-200 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 disabled:bg-gray-50 disabled:text-gray-400 transition"
+            className="flex-1 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full border border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 disabled:bg-gray-50 disabled:text-gray-400 transition"
           />
           <button
             onClick={handleSend}
