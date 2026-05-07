@@ -91,7 +91,7 @@ export default function ChatWindow({ chatId, userId }: Props) {
               <p className="text-xs font-medium text-gray-500 text-center">이렇게 물어보세요</p>
               {[
                 '흰색 원형 알약에 C 글자가 있어',
-                '노란색 긴 알약 뒷면에 325',
+                '흰색 긴 알약 뒷면에 325',
                 '타이레놀 어떻게 생겼어?',
                 '해열진통제 종류 알려줘',
               ].map((example) => (
